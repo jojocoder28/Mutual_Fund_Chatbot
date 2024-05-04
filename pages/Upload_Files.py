@@ -140,7 +140,7 @@ def main():
                 
                 
         # tabula.convert_into(uploaded_file[0], f"db/{index_name}/table.csv",pages='all', output_format='csv')
-        tables2 = tabula.read_pdf(uploaded_file[0], pages="all", multiple_tables=True)
+        tables=cm.read_pdf(uploaded_file[0],pages='1',orient="records")
         # Existing indices
         index_option = st.selectbox('Add to existing Indices', st.session_state.existing_indices)
         st.write(index_option)
