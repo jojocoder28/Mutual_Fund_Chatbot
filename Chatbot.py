@@ -1,4 +1,5 @@
-from langchain_community.chat_models import ChatCohere
+# from langchain_community.chat_models import ChatCohere
+from langchain_cohere import ChatCohere
 from langchain_openai import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
@@ -13,7 +14,7 @@ import base64
 import pandas as pd
 from io import StringIO
 import re
-    
+# os.environ['JAVA_HOME'] = './jdk'
 st.set_page_config("Chatbot | ST","🤖")
 
 load_dotenv()
@@ -48,7 +49,7 @@ embeddings = CohereEmbeddings(cohere_api_key=COHERE_API_KEY, model="embed-englis
 
 
 # For OpenAI's gpt-3.5-turbo llm
-# llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo" openai_api_key=OPENAI_API_KEY)
+# llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=OPENAI_API_KEY)
 
 # For Cohere's command-r llm
 llm = ChatCohere(temperature=0, cohere_api_key=COHERE_API_KEY, model="command-r")

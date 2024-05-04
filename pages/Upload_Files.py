@@ -12,7 +12,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_cohere import CohereEmbeddings
 import tabula
-
+# os.environ['JAVA_HOME'] = './jdk'
 st.set_page_config("Upload Files | ST", "⬆️")
 
 load_dotenv()
