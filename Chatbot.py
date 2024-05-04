@@ -14,7 +14,7 @@ import pandas as pd
 from io import StringIO
 import re
     
-st.set_page_config("Chatbot | ST","💬")
+st.set_page_config("Chatbot | ST","🤖")
 
 load_dotenv()
 
