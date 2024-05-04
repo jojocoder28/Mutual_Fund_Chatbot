@@ -19,28 +19,16 @@ import tarfile
 # os.environ['JAVA_HOME'] = './jdk'
 
 
-if "JAVA_HOME" not in os.environ:
-    java_url = "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
-    java_tar_gz = wget.download(java_url)
-    # st.write("Extracting Java 11...")
-    with tarfile.open(java_tar_gz, "r:gz") as tar:
-        tar.extractall()
-    java_dir = os.path.basename(java_url).split(".tar.gz")[0]
-    java_home = os.path.abspath(java_dir)
-    os.environ["JAVA_HOME"] = java_home
-    os.environ["PATH"] += os.pathsep + os.path.join(java_home, "bin")
-
-
-
-
-
-
-
-
-
-
-
-
+# if "JAVA_HOME" not in os.environ:
+#     java_url = "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
+#     java_tar_gz = wget.download(java_url)
+#     # st.write("Extracting Java 11...")
+#     with tarfile.open(java_tar_gz, "r:gz") as tar:
+#         tar.extractall()
+#     java_dir = os.path.basename(java_url).split(".tar.gz")[0]
+#     java_home = os.path.abspath(java_dir)
+#     os.environ["JAVA_HOME"] = java_home
+#     os.environ["PATH"] += os.pathsep + os.path.join(java_home, "bin")
 
 
 
@@ -222,7 +210,7 @@ def main():
     
     if 'existing_indices' in st.session_state:
         
-        st.session_state.mf_schemes=schemeRetrieve(f"./db/{st.session_state.selected_option}/table.csv")
+        st.session_state.mf_schemes=schemeRetrieve(f"./db/table.csv")
         
         with st.popover("Select Scheme", help="👉 Select the Mutual Fund Scheme"):
         
