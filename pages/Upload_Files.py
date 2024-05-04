@@ -12,27 +12,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_cohere import CohereEmbeddings
 import tabula
-import wget
-import tarfile
+import camelot as cm
 # os.environ['JAVA_HOME'] = './jdk'
-
-
-
-
-if "JAVA_HOME" not in os.environ:
-    java_url = "https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz"
-    java_tar_gz = wget.download(java_url)
-    # st.write("Extracting Java 11...")
-    with tarfile.open(java_tar_gz, "r:gz") as tar:
-        tar.extractall()
-    java_dir = os.path.basename(java_url).split(".tar.gz")[0]
-    java_home = os.path.abspath(java_dir)
-    os.environ["JAVA_HOME"] = java_home
-    os.environ["PATH"] += os.pathsep + os.path.join(java_home, "bin")
-
-
-
-
 
 
 
@@ -158,8 +139,8 @@ def main():
                 st.success(f"New Index **{index_name}** created successfully")
                 
                 
-        tabula.convert_into(uploaded_file[0], f"db/{index_name}/table.csv",pages='all', output_format='csv')
-
+        # tabula.convert_into(uploaded_file[0], f"db/{index_name}/table.csv",pages='all', output_format='csv')
+        tables2 = tabula.read_pdf(uploaded_file[0], pages="all", multiple_tables=True)
         # Existing indices
         index_option = st.selectbox('Add to existing Indices', st.session_state.existing_indices)
         st.write(index_option)
