@@ -76,7 +76,12 @@ llm = ChatCohere(temperature=1, cohere_api_key=COHERE_API_KEY, model="command-r"
 
 # For reading PDFs and returning text string
 def read_pdf(files):
-    file_content=""
+    file_content=''' Net Inflow or Outflow: Calculated as taking the difference of `Funds Mobilized for the month` and `Repurchase/Redemption for the month` field.
+
+     Net Asset under Management per Scheme: Determined by dividing the `Net Assets Under Management` by the `No. of Schemes`.
+
+     Net Inflow or Outflow per Scheme: This is the ratio of `Net Inflow or Outflow` to the `No. of Schemes`.
+     '''
     for file in files:
         # Create a PDF file reader object
         pdf_reader = PyPDF2.PdfReader(file)
