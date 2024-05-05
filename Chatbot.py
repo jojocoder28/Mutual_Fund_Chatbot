@@ -14,7 +14,7 @@ import base64
 import pandas as pd
 from io import StringIO
 import re
-import wget
+# import wget
 import tarfile
 # os.environ['JAVA_HOME'] = './jdk'
 
@@ -34,7 +34,7 @@ import tarfile
 
 
 
-st.set_page_config("Chatbot | ST","🤖")
+st.set_page_config("ChatSDK Funds","🤖")
 
 load_dotenv()
 
@@ -71,7 +71,7 @@ embeddings = CohereEmbeddings(cohere_api_key=COHERE_API_KEY, model="embed-englis
 # llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=OPENAI_API_KEY)
 
 # For Cohere's command-r llm
-llm = ChatCohere(temperature=0, cohere_api_key=COHERE_API_KEY, model="command-r")
+llm = ChatCohere(temperature=1, cohere_api_key=COHERE_API_KEY, model="command-r")
 
 
 # For reading PDFs and returning text string
@@ -124,7 +124,7 @@ def chatbot():
         if prompt:
             exprompt=prompt                       #to store the previous prompt
             exprompt="For the "+", ".join(st.session_state.selected_scheme)+", "+exprompt
-            exprompt+=" . Give the result in tabular format"          #want to show data in tabular form
+            exprompt+=" . Give the result in tabular format if needed"          #want to show data in tabular form
             # promptcsv=prompt+" in csv format"   #for downloading csv version                                    
             user_text = f'''{prompt}'''
             user_msg = st.chat_message("human", avatar="💀")
