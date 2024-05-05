@@ -67,15 +67,25 @@ streamlit run .\Report_Generator.py
 ## Use
 
 - Navigate to **Upload Files** in the sidebar to upload your own PDFs (make sure the PDFs are readable)
-![Upload](image/upload_Files.png)
+#
+![Upload](image/upload_files.png)
+#
 - Store the uploaded PDFs in a new or existing index.
-- Navigate to **Chatbot** and select the desired index (An index for the year 2022 is already created).
+- Navigate to **Report Generator** and select the desired index (An index for the year 2022 is already created).
 - Select your scheme from the drop-down menu, or search in the search box
-![Select Scheme](image/scheme_sel.png)
+#
+![Select Scheme](image/generate_report.png)
+#
 - Select the fields on which you want to generate a report on from the `Field` drop-down menu.
 - Click on `Generate`. The report from your query will be generated in a tabular form.
-![Chatbot](images/report.png)
+#
+![Chatbot](image/report.png)
+#
 - You can download the generated report in CSV format from the `Download CSV File` link.
+- You can also use the Chatbot
+#
+ ![Chatbot](image/chatbot.png)
+ #
 - If you want to know the what chunks were sent to the llm to generate the report, click on the `see chunks...` drop down.
 
 
