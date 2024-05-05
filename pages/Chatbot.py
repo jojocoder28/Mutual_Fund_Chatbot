@@ -1,4 +1,5 @@
-from langchain_community.chat_models import ChatCohere
+# from langchain_community.chat_models import ChatCohere
+from langchain_cohere import ChatCohere
 from langchain_openai import ChatOpenAI
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
