@@ -2,7 +2,6 @@ import os
 import time
 import json
 import shutil
-# import tabula
 from dotenv import load_dotenv
 from langchain_community.vectorstores import FAISS
 from langchain_openai import ChatOpenAI
