@@ -55,7 +55,7 @@ def chatbot():
         prompt = st.chat_input("Say something")
         
         # Write previous converstions
-        for i in st.session_state.conversation:
+        for i in st.session_state.conversation_chatbot:
             user_msg = st.chat_message("human", avatar="🐒")
             user_msg.write(i[0])
             computer_msg = st.chat_message("ai", avatar="🧠")
@@ -82,8 +82,8 @@ def chatbot():
                 doc_score = st.session_state.book_docsearch.similarity_search_with_score(prompt, k=chunks_to_retrieve)
                 with st.popover("See chunks..."):
                     st.write(doc_score)
-                # Adding current conversation to the list.
-                st.session_state.conversation.append((prompt, answer))   
+                # Adding current conversation_chatbot to the list.
+                st.session_state.conversation_chatbot.append((prompt, answer))   
     else:
         st.warning("Please upload a file")
 
@@ -100,8 +100,8 @@ def initial(flag=False):
         except:
             st.session_state.selected_option = None
     
-    if 'conversation' not in st.session_state:
-        st.session_state.conversation = []
+    if 'conversation_chatbot' not in st.session_state:
+        st.session_state.conversation_chatbot = []
     if 'book_docsearch' not in st.session_state:
         st.session_state.book_docsearch = None
     

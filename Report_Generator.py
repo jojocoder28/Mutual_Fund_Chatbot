@@ -152,7 +152,7 @@ def chatbot():
             exprompt="For the "+", ".join(st.session_state.selected_scheme)+", "+exprompt
             exprompt+=" . Give the result in tabular format."          #want to show data in tabular form
             # promptcsv=prompt+" in csv format"   #for downloading csv version                                    
-            user_text = f'''Scheme: {st.session_state.selected_scheme}, Field: {st.session_state.selected_field}'''
+            user_text = f'''Scheme: {", ".join(st.session_state.selected_scheme)}, Field: {", ".join(st.session_state.selected_field)}'''
             user_msg = st.chat_message("human", avatar="🐒")
             user_msg.write(user_text)
 
