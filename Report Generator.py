@@ -34,7 +34,7 @@ import tarfile
 
 
 
-st.set_page_config("ChatSDK Funds","🤖")
+st.set_page_config("Report Funds","🤖")
 
 load_dotenv()
 
@@ -59,7 +59,26 @@ def schemeRetrieve(path):
                 mf_scheme_list.append(str(i)) 
     return mf_scheme_list
 
-
+def field_retrieve(path):
+    df=pd.read_csv(path)
+    df.columns=df.iloc[0].values
+    df=df.drop(df.index[0])
+    l=df.columns[2:].values
+    ll=[]
+    for i in l:
+        newl=i.replace("\r"," ")
+        newl=newl.replace("segregat ed","segregated")
+        if "as" in newl:
+            pos=newl.find("as")
+        if "for" in newl:
+            pos=newl.find("for")
+        newl=newl[0:pos-1]
+        ll.append(newl)
+    ll.append("Net Inflow or Outflow")
+    ll.append("Net Asset under Management per Scheme")
+    ll.append("Net Inflow or Outflow per Scheme")
+    
+    return ll
 
 
 
@@ -113,26 +132,28 @@ def download_df(content, filename='data.csv'):
 #------------------------💬 CHATBOT -----------------------#
 #----------------------------------------------------------#
 def chatbot():
-    st.subheader("Ask questions from the PDFs")
+    st.subheader("Generate your Desired Mutual Fund Report")
     st.markdown("<br>", unsafe_allow_html=True)
+    btn=st.button("Generate", type="primary")
     # Check if it is empty
     if st.session_state.book_docsearch:   
-        prompt = st.chat_input("Say something")
+        # prompt = st.chat_input("Say something")
+        prompt="give the data of "+", ".join(st.session_state.selected_field)
         
         # Write previous converstions
         for i in st.session_state.conversation:
-            user_msg = st.chat_message("human", avatar="💀")
+            user_msg = st.chat_message("human", avatar="🐒")
             user_msg.write(i[0])
-            computer_msg = st.chat_message("ai", avatar="✨")
+            computer_msg = st.chat_message("ai", avatar="🧠")
             computer_msg.write(i[1])
             
-        if prompt:
+        if btn and prompt:
             exprompt=prompt                       #to store the previous prompt
             exprompt="For the "+", ".join(st.session_state.selected_scheme)+", "+exprompt
-            exprompt+=" . Give the result in tabular format if needed"          #want to show data in tabular form
+            exprompt+=" . Give the result in tabular format."          #want to show data in tabular form
             # promptcsv=prompt+" in csv format"   #for downloading csv version                                    
-            user_text = f'''{prompt}'''
-            user_msg = st.chat_message("human", avatar="💀")
+            user_text = f'''Scheme: {st.session_state.selected_scheme}, Field: {st.session_state.selected_field}'''
+            user_msg = st.chat_message("human", avatar="🐒")
             user_msg.write(user_text)
 
             with st.spinner("Getting Answer..."):
@@ -147,7 +168,7 @@ def chatbot():
                 
                 computer_text = f'''{answer}'''
                 # print(answer)
-                computer_msg = st.chat_message("ai", avatar="✨") 
+                computer_msg = st.chat_message("ai", avatar="🧠") 
                 computer_msg.write(computer_text)
                 
                 #Download Data
@@ -158,7 +179,7 @@ def chatbot():
                 with st.popover("See chunks..."):
                     st.write(doc_score)
                 # Adding current conversation to the list.
-                st.session_state.conversation.append((prompt, answer))   
+                st.session_state.conversation.append((user_text, answer))   
     else:
         st.warning("Please upload a file")
 
@@ -192,12 +213,24 @@ def initial(flag=False):
             st.session_state.selected_scheme = st.session_state.mf_schemes[0]
         except:
             st.session_state.selected_scheme = None
+    
+    if 'mf_field' not in st.session_state or flag:
+        try:
+            st.session_state.mf_field=field_retrieve(f"./{path}/table.csv")
+        except:
+            st.session_state.mf_field=None
+    
+    if ('selected_field' not in st.session_state) or flag:
+        try:
+            st.session_state.selected_field = st.session_state.mf_schemes[0]
+        except:
+            st.session_state.selected_field = None
             
 
 def main():
     initial(True)
     # Streamlit UI
-    st.title("💰 Mutual Fund Chatbot")
+    st.title("💰 Mutual Fund Report Generator")
     
     # For showing the index selector
     file_list=[]
@@ -227,6 +260,13 @@ def main():
         temp_scheme=", ".join(st.session_state.selected_scheme)
         st.write(f"*Selected Scheme* : **:green[{temp_scheme}]**")
         
+        with st.popover("Select Field", help="👉 Select the Field"):
+        
+            radio_field = st.multiselect("Select a Scheme...", st.session_state.mf_field)
+            st.session_state.selected_field = radio_field
+        temp_field=", ".join(st.session_state.selected_field)
+        st.write(f"*Selected Scheme* : **:green[{temp_field}]**")
+        
     
     # Load the selected index from local storage
     if st.session_state.selected_option:
@@ -236,6 +276,8 @@ def main():
     else:
         st.warning("⚠️ No index present. Please add a new index.")
         st.page_link("pages/Upload_Files.py", label="Upload Files", icon="⬆️")
+        st.page_link("pages/Chatbot.py", label="Basic Chatbot", icon="💬")
+        
             
             
  

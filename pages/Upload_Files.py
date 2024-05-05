@@ -17,7 +17,7 @@ import tabula
 
 
 
-st.set_page_config("Upload Files | ST", "⬆️")
+st.set_page_config("Upload Files", "📤")
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -109,7 +109,7 @@ def main():
     
     initial()
    
-    st.title("⬆️ Upload new files")       
+    st.title("📤 Upload new files")       
     uploaded_file = st.file_uploader("&nbsp;Upload PDF", type="pdf", accept_multiple_files=True, help="Upload PDF files to store")
     
     if uploaded_file:
