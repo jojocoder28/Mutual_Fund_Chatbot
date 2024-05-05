@@ -14,7 +14,7 @@ st.set_page_config("ChatSDK Fund","💬")
 load_dotenv()
 
 # API Keys
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+# OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 COHERE_API_KEY = os.getenv('COHERE_API_KEY')
 
 # Using Cohere's embed-english-v3.0 embedding model
